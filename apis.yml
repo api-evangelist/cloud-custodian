@@ -1,0 +1,16 @@
+name: Cloud Custodian
+description: Rules engine for cloud security, compliance, and cost optimization that
+  enables users to define policies to manage cloud resources across AWS, Azure, and
+  GCP. It helps organizations meet regulatory requirements and demonstrate accountability
+  to stakeholders.
+url: https://cloudcustodian.io/
+tags:
+- Cloud Security
+- Compliance
+- Cost Optimization
+- Policy as Code
+- Multi-Cloud
+created: '2025'
+modified: '2025'
+apis: []
+common: []
