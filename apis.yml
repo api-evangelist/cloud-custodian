@@ -1,16 +1,45 @@
+aid: cloud-custodian
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/cloud-custodian/refs/heads/main/apis.yml
 name: Cloud Custodian
-description: Rules engine for cloud security, compliance, and cost optimization that
-  enables users to define policies to manage cloud resources across AWS, Azure, and
-  GCP. It helps organizations meet regulatory requirements and demonstrate accountability
-  to stakeholders.
-url: https://cloudcustodian.io/
 tags:
-- Cloud Security
-- Compliance
-- Cost Optimization
-- Policy as Code
-- Multi-Cloud
-created: '2025'
-modified: '2025'
-apis: []
-common: []
+  - Cloud Security
+  - Compliance
+  - Cost Optimization
+  - Policy as Code
+  - Multi-Cloud
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2025-01-01'
+modified: '2026-03-16'
+position: Consumer
+description: >-
+  Cloud Custodian is a rules engine for cloud security, compliance, and cost
+  optimization that enables users to define policies to manage cloud resources
+  across AWS, Azure, and GCP. It helps organizations meet regulatory
+  requirements and demonstrate accountability to stakeholders.
+apis:
+  - aid: cloud-custodian:cloud-custodian
+    name: Cloud Custodian
+    tags:
+      - Cloud Security
+      - Policy as Code
+    humanURL: https://cloudcustodian.io/
+    properties:
+      - url: https://cloudcustodian.io/docs/
+        type: Documentation
+    description: >-
+      Cloud Custodian provides rules-engine capabilities for managing cloud
+      resources with security, compliance, and cost optimization policies.
+common:
+  - type: Website
+    url: https://cloudcustodian.io/
+  - type: Documentation
+    url: https://cloudcustodian.io/docs/
+  - type: GitHub Organization
+    url: https://github.com/cloud-custodian/cloud-custodian
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+specificationVersion: '0.19'
