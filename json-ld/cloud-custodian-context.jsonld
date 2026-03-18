@@ -1,0 +1,192 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "c7n": "https://cloudcustodian.io/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Policy": {
+      "@id": "c7n:Policy",
+      "@context": {
+        "name": {
+          "@id": "dcterms:identifier"
+        },
+        "description": {
+          "@id": "dcterms:description"
+        },
+        "resource": {
+          "@id": "c7n:resourceType"
+        },
+        "filters": {
+          "@id": "c7n:hasFilter",
+          "@container": "@set"
+        },
+        "actions": {
+          "@id": "c7n:hasAction",
+          "@container": "@set"
+        },
+        "mode": {
+          "@id": "c7n:executionMode"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "metadata": {
+          "@id": "c7n:metadata"
+        }
+      }
+    },
+
+    "PolicyMode": {
+      "@id": "c7n:PolicyMode",
+      "@context": {
+        "type": {
+          "@id": "c7n:modeType"
+        },
+        "role": {
+          "@id": "c7n:iamRole",
+          "@type": "@id"
+        },
+        "schedule": {
+          "@id": "c7n:schedule"
+        },
+        "timeout": {
+          "@id": "c7n:timeout",
+          "@type": "xsd:integer"
+        },
+        "memory": {
+          "@id": "c7n:memoryMb",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Filter": {
+      "@id": "c7n:Filter",
+      "@context": {
+        "type": {
+          "@id": "c7n:filterType"
+        },
+        "key": {
+          "@id": "c7n:jmesPathKey"
+        },
+        "op": {
+          "@id": "c7n:operator"
+        },
+        "value": {
+          "@id": "c7n:filterValue"
+        },
+        "value_type": {
+          "@id": "c7n:valueTransform"
+        }
+      }
+    },
+
+    "Action": {
+      "@id": "c7n:Action",
+      "@context": {
+        "type": {
+          "@id": "c7n:actionType"
+        }
+      }
+    },
+
+    "NotifyAction": {
+      "@id": "c7n:NotifyAction",
+      "@context": {
+        "type": {
+          "@id": "c7n:actionType"
+        },
+        "to": {
+          "@id": "schema:recipient",
+          "@container": "@set"
+        },
+        "subject": {
+          "@id": "schema:name"
+        },
+        "template": {
+          "@id": "c7n:messageTemplate"
+        },
+        "transport": {
+          "@id": "c7n:notifyTransport"
+        },
+        "violation_desc": {
+          "@id": "c7n:violationDescription"
+        },
+        "action_desc": {
+          "@id": "c7n:actionDescription"
+        }
+      }
+    },
+
+    "PolicyNotification": {
+      "@id": "c7n:PolicyNotification",
+      "@context": {
+        "account_id": {
+          "@id": "c7n:awsAccountId"
+        },
+        "account": {
+          "@id": "schema:name"
+        },
+        "region": {
+          "@id": "c7n:awsRegion"
+        },
+        "execution_id": {
+          "@id": "dcterms:identifier"
+        },
+        "execution_start": {
+          "@id": "dcterms:created",
+          "@type": "xsd:decimal"
+        },
+        "policy": {
+          "@id": "c7n:triggeredPolicy"
+        },
+        "resources": {
+          "@id": "c7n:matchedResources",
+          "@container": "@set"
+        },
+        "event": {
+          "@id": "c7n:triggeringEvent"
+        }
+      }
+    },
+
+    "CloudResource": {
+      "@id": "c7n:CloudResource",
+      "@context": {
+        "account_id": {
+          "@id": "c7n:awsAccountId"
+        },
+        "region": {
+          "@id": "c7n:awsRegion"
+        },
+        "Tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "MailerConfig": {
+      "@id": "c7n:MailerConfig",
+      "@context": {
+        "queue_url": {
+          "@id": "c7n:sqsQueueUrl",
+          "@type": "@id"
+        },
+        "region": {
+          "@id": "c7n:awsRegion"
+        },
+        "from_address": {
+          "@id": "schema:email"
+        },
+        "role": {
+          "@id": "c7n:iamRole",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cloudcustodian.io/schemas/policy.json",
+  "title": "Cloud Custodian Policy File",
+  "description": "Schema for a Cloud Custodian policy YAML file. A policy file contains one or more policies, each of which selects a cloud resource type, applies filters to narrow the set of matching resources, and executes actions against those resources. Policies can run in pull mode (on-demand), event mode (triggered by cloud events), periodic mode (scheduled), or config-rule mode (AWS Config). Cloud Custodian supports AWS, Azure, and GCP resource types.",
+  "type": "object",
+  "required": ["policies"],
+  "properties": {
+    "policies": {
+      "type": "array",
+      "description": "List of one or more policy definitions in this file. Each policy selects a resource type and defines filters and actions to apply.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/Policy"
+      }
+    },
+    "vars": {
+      "type": "object",
+      "description": "Global variable definitions that can be referenced across policies in this file using the {vars.varname} interpolation syntax.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "Policy": {
+      "type": "object",
+      "description": "A single Cloud Custodian policy definition. Specifies a cloud resource type, optional execution mode, filter criteria, and actions to perform against matching resources.",
+      "required": ["name", "resource"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "description": "Unique name for the policy within this file. Used in log output, metric names, and output directory names. Must contain only alphanumeric characters, hyphens, and underscores."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description explaining what this policy does, why it exists, and what it acts on."
+        },
+        "resource": {
+          "type": "string",
+          "description": "The cloud resource type this policy manages. Uses provider-prefixed notation such as 'aws.ec2', 'azure.vm', 'gcp.instance', or the legacy unprefixed form 'ec2' for AWS resources.",
+          "examples": [
+            "aws.ec2",
+            "aws.s3",
+            "aws.iam-user",
+            "aws.rds",
+            "aws.lambda",
+            "azure.vm",
+            "azure.storage",
+            "gcp.instance",
+            "gcp.gcs-bucket"
+          ]
+        },
+        "mode": {
+          "$ref": "#/$defs/PolicyMode"
+        },
+        "filters": {
+          "type": "array",
+          "description": "List of filter expressions that select which resources this policy applies to. Filters are ANDed together by default. Use 'or', 'and', and 'not' operators for complex logic. Resources that do not match all filters are excluded from action.",
+          "items": {
+            "$ref": "#/$defs/Filter"
+          }
+        },
+        "actions": {
+          "type": "array",
+          "description": "List of actions to perform against resources that match the filters. Actions vary by resource type and include operations like stop, terminate, tag, notify, mark-for-op, and remediation actions.",
+          "items": {
+            "$ref": "#/$defs/Action"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "description": "User-defined tags for categorizing and grouping policies. Used for filtering in c7n-org and dashboards.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Arbitrary key-value metadata attached to the policy. Available in policy output and notifications.",
+          "additionalProperties": true
+        },
+        "comment": {
+          "type": "string",
+          "description": "Additional commentary about the policy for documentation purposes."
+        },
+        "max-resources": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum number of resources this policy will act on in a single run. If more resources match, the policy aborts without taking action to prevent accidental mass operations."
+        },
+        "max-resources-percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Maximum percentage of the total resource population this policy will act on in a single run. Prevents acting on an unexpectedly large fraction of resources."
+        },
+        "vars": {
+          "type": "object",
+          "description": "Policy-level variable definitions, merged with file-level vars. Accessible via {vars.varname} interpolation in filter and action values.",
+          "additionalProperties": true
+        },
+        "source": {
+          "type": "string",
+          "description": "Override the default resource source query. Rarely needed; most policies use the default resource enumeration.",
+          "enum": ["describe", "config"]
+        }
+      }
+    },
+    "PolicyMode": {
+      "type": "object",
+      "description": "Execution mode configuration for the policy. Determines whether the policy runs on-demand (pull), in response to cloud events (cloudtrail, ec2-instance-state, etc.), on a schedule (periodic), or as an AWS Config rule.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The execution mode for the policy.",
+          "enum": [
+            "pull",
+            "cloudtrail",
+            "ec2-instance-state",
+            "asg-instance-state",
+            "config-rule",
+            "periodic",
+            "phd",
+            "hub-action",
+            "hub-finding",
+            "azure-event-grid",
+            "azure-periodic",
+            "gcp-audit",
+            "gcp-periodic"
+          ]
+        },
+        "schedule": {
+          "type": "string",
+          "description": "Cron or rate expression for periodic execution mode. For AWS Lambda: 'rate(1 hour)' or 'cron(0 9 * * ? *)'. For Azure and GCP use standard cron syntax.",
+          "examples": ["rate(1 hour)", "rate(24 hours)", "cron(0 9 * * ? *)"]
+        },
+        "events": {
+          "type": "array",
+          "description": "List of cloud events that trigger the policy in event-driven modes (cloudtrail, azure-event-grid, gcp-audit). Each entry specifies the event source and optional filter criteria.",
+          "items": {
+            "$ref": "#/$defs/EventSource"
+          }
+        },
+        "role": {
+          "type": "string",
+          "description": "IAM role ARN for Lambda function execution in AWS serverless modes. The Lambda function assumes this role when running.",
+          "pattern": "^arn:aws:iam::[0-9]{12}:role/.+$"
+        },
+        "function-prefix": {
+          "type": "string",
+          "description": "Prefix for the Lambda function name. Defaults to 'custodian-'."
+        },
+        "execution-options": {
+          "type": "object",
+          "description": "Additional execution options passed to the Lambda environment.",
+          "additionalProperties": true
+        },
+        "tags": {
+          "type": "object",
+          "description": "Tags to apply to Lambda functions or other infrastructure created for this policy mode.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "memory": {
+          "type": "integer",
+          "description": "Memory in MB for the Lambda function created for this policy.",
+          "minimum": 128,
+          "default": 512
+        },
+        "timeout": {
+          "type": "integer",
+          "description": "Timeout in seconds for the Lambda function. Maximum 900.",
+          "minimum": 1,
+          "maximum": 900,
+          "default": 60
+        }
+      }
+    },
+    "EventSource": {
+      "type": "object",
+      "description": "An event source definition for event-driven policy execution. Specifies which cloud API event triggers the policy.",
+      "properties": {
+        "event": {
+          "type": "string",
+          "description": "The cloud event name, e.g. 'CreateBucket' for S3 CloudTrail events or 'RunInstances' for EC2."
+        },
+        "source": {
+          "type": "string",
+          "description": "The event source service, e.g. 's3.amazonaws.com', 'ec2.amazonaws.com'."
+        },
+        "ids": {
+          "type": "string",
+          "description": "JMESPath expression to extract resource identifiers from the event payload."
+        }
+      }
+    },
+    "Filter": {
+      "description": "A filter expression selecting which resources the policy applies to. Can be a simple attribute filter object, a logical operator (or/and/not), a named filter type, or a shorthand string. Filters are ANDed by default.",
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "A named filter or operator object. The 'type' property identifies the filter class; remaining properties are filter-specific options.",
+          "additionalProperties": true
+        },
+        {
+          "type": "string",
+          "description": "Shorthand filter expression. Used for tag presence checks and simple equality, e.g. 'tag:Env' or 'State.Name: running'."
+        }
+      ]
+    },
+    "Action": {
+      "description": "An action to perform against resources matching the policy filters. Can be a simple action name string or an action configuration object with a 'type' key and action-specific parameters.",
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "An action configuration object. The 'type' property names the action; remaining properties configure it.",
+          "required": ["type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "The action type name, e.g. 'stop', 'terminate', 'tag', 'notify', 'mark-for-op', 'delete', 'copy-related-tag'."
+            }
+          },
+          "additionalProperties": true
+        },
+        {
+          "type": "string",
+          "description": "Simple action name as a string, e.g. 'stop', 'start', 'delete', 'terminate'."
+        }
+      ]
+    },
+    "NotifyAction": {
+      "type": "object",
+      "description": "Notification action configuration for sending messages via c7n-mailer. Sends resource information to an SQS queue for delivery via email, Slack, or other notification channels.",
+      "required": ["type", "transport", "to"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "notify",
+          "description": "Action type identifier."
+        },
+        "template": {
+          "type": "string",
+          "description": "Name of the Jinja2 template file (without .j2 extension) to use for the notification message body."
+        },
+        "subject": {
+          "type": "string",
+          "description": "Subject line for email notifications. Supports Jinja2 template syntax with access to policy and resource data."
+        },
+        "to": {
+          "type": "array",
+          "description": "List of notification recipients. Supports email addresses, Slack channels (slack://#channel), Slack users (slack://user@example.com), SNS ARNs, and special values like resource-owner.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "transport": {
+          "$ref": "#/$defs/NotifyTransport"
+        },
+        "cc": {
+          "type": "array",
+          "description": "Carbon copy email recipients for email notifications.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "from": {
+          "type": "string",
+          "description": "Sender email address for email notifications."
+        },
+        "violation_desc": {
+          "type": "string",
+          "description": "Human-readable description of the policy violation included in the notification message."
+        },
+        "action_desc": {
+          "type": "string",
+          "description": "Human-readable description of the corrective action taken or requested, included in the notification."
+        }
+      }
+    },
+    "NotifyTransport": {
+      "type": "object",
+      "description": "Transport configuration for delivering notifications via c7n-mailer. Specifies the SQS queue where notification messages are published.",
+      "required": ["type", "queue"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "sqs",
+          "description": "Transport type. Currently only 'sqs' is supported."
+        },
+        "queue": {
+          "type": "string",
+          "description": "SQS queue URL where notification messages are published by the notify action and consumed by c7n-mailer.",
+          "pattern": "^https://sqs\\.[a-z0-9-]+\\.amazonaws\\.com/[0-9]{12}/.+$"
+        },
+        "region": {
+          "type": "string",
+          "description": "AWS region of the SQS queue, if different from the default region."
+        }
+      }
+    },
+    "MarkForOpAction": {
+      "type": "object",
+      "description": "Mark-for-op action that tags resources for a deferred operation after a grace period. Used to warn resource owners before taking destructive actions.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "mark-for-op",
+          "description": "Action type identifier."
+        },
+        "op": {
+          "type": "string",
+          "description": "The operation to perform after the grace period, e.g. 'stop', 'terminate', 'delete'."
+        },
+        "days": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of days after which the marked operation will be performed. Default is 4.",
+          "default": 4
+        },
+        "hours": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of hours after which the marked operation will be performed. Takes precedence over days if both are specified."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Tag key to use for marking the resource. Defaults to 'maid_status'.",
+          "default": "maid_status"
+        },
+        "msg": {
+          "type": "string",
+          "description": "Custom message to include in the mark tag value."
+        }
+      }
+    },
+    "TagAction": {
+      "type": "object",
+      "description": "Tag action that adds or updates tags on matched resources.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "tag",
+          "description": "Action type identifier."
+        },
+        "tags": {
+          "type": "object",
+          "description": "Key-value pairs of tags to apply to matched resources. Values support Jinja2 template syntax.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "key": {
+          "type": "string",
+          "description": "Single tag key to set. Used together with the 'value' field as an alternative to the 'tags' map."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value for the single tag specified by 'key'."
+        }
+      }
+    }
+  }
+}

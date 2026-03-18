@@ -1,0 +1,281 @@
+asyncapi: 2.6.0
+info:
+  title: Cloud Custodian c7n-mailer Notification Events
+  version: 1.0.0
+  description: >-
+    The Cloud Custodian c7n-mailer AsyncAPI defines the event-driven notification
+    interface used by the Cloud Custodian policy engine to deliver policy violation
+    alerts. When a policy's notify action fires, the Custodian runtime encodes a
+    structured message payload and publishes it to an AWS SQS queue. The c7n-mailer
+    daemon dequeues these messages and delivers notifications via email (SES),
+    Slack, DataDog, Splunk, or webhook endpoints. Messages are base64-encoded,
+    gzip-compressed JSON identified by the maidmsg/1.0 message type.
+  contact:
+    name: Cloud Custodian Community
+    url: https://cloudcustodian.io/community/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: c7n-mailer Documentation
+  url: https://cloudcustodian.io/docs/tools/c7n-mailer.html
+servers:
+  aws-sqs:
+    url: 'https://sqs.{region}.amazonaws.com/{account-id}/{queue-name}'
+    protocol: https
+    description: >-
+      AWS SQS queue that receives policy notification messages from Cloud
+      Custodian notify actions. The c7n-mailer daemon polls this queue and
+      processes messages for delivery to configured notification channels.
+    variables:
+      region:
+        description: AWS region where the SQS queue is deployed.
+        default: us-east-1
+      account-id:
+        description: The AWS account ID that owns the SQS queue.
+      queue-name:
+        description: The name of the SQS queue configured in mailer.yml.
+channels:
+  /policy-notification:
+    description: >-
+      Channel through which Cloud Custodian publishes policy violation
+      notification messages. Each message describes the policy that matched,
+      the resources that were affected, and the account context. The c7n-mailer
+      subscribes to this channel to deliver alerts to operators.
+    publish:
+      operationId: publishPolicyNotification
+      summary: Publish Policy Notification
+      description: >-
+        Published by the Cloud Custodian runtime when a policy with a notify
+        action matches one or more resources. The message payload contains the
+        full policy definition, matched resource list, account metadata, and
+        execution context. Messages are base64-encoded gzip-compressed JSON.
+      message:
+        $ref: '#/components/messages/PolicyNotification'
+      tags:
+        - name: Notifications
+        - name: Policy
+    subscribe:
+      operationId: receivePolicyNotification
+      summary: Receive Policy Notification
+      description: >-
+        Consumed by the c7n-mailer daemon which polls the SQS queue and
+        dispatches notifications via the configured delivery channels including
+        SES email, Slack, DataDog, Splunk, or webhook. Each message is
+        decompressed and decoded before template rendering and delivery.
+      message:
+        $ref: '#/components/messages/PolicyNotification'
+      tags:
+        - name: Notifications
+        - name: Mailer
+components:
+  messages:
+    PolicyNotification:
+      name: PolicyNotification
+      title: Cloud Custodian Policy Notification
+      summary: >-
+        A notification message emitted by a Cloud Custodian policy notify
+        action describing the matched resources and execution context.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          MessageType:
+            type: string
+            description: Message type identifier for the maidmsg transport format.
+            enum:
+              - maidmsg/1.0
+      payload:
+        $ref: '#/components/schemas/PolicyNotificationPayload'
+  schemas:
+    PolicyNotificationPayload:
+      type: object
+      description: >-
+        The decoded JSON payload of a Cloud Custodian policy notification
+        message sent to SQS by the notify action. Contains the matched
+        resources, full policy definition, account context, and execution
+        metadata required for rendering notification templates.
+      required:
+        - policy
+        - resources
+        - account_id
+        - region
+        - execution_id
+        - execution_start
+      properties:
+        event:
+          description: >-
+            The triggering event that caused the policy to execute. Null for
+            pull-mode policies; contains the CloudWatch/Config event for
+            Lambda-mode policies.
+          nullable: true
+        account_id:
+          type: string
+          description: >-
+            The AWS account ID in which the policy was executed.
+          pattern: '^\d{12}$'
+        account:
+          type: string
+          description: >-
+            The human-readable alias of the AWS account in which the policy
+            was executed.
+        region:
+          type: string
+          description: >-
+            The AWS region where the policy was executed (e.g., us-east-1).
+        execution_id:
+          type: string
+          description: >-
+            A unique identifier for this policy execution run, used for
+            correlating log entries and notifications.
+        execution_start:
+          type: number
+          description: >-
+            Unix timestamp (float) of when the policy execution started.
+        policy:
+          $ref: '#/components/schemas/PolicyDefinition'
+        action:
+          $ref: '#/components/schemas/NotifyAction'
+        resources:
+          type: array
+          description: >-
+            Array of cloud resource objects that matched all policy filters.
+            Each object contains the full resource metadata as returned by the
+            cloud provider API.
+          items:
+            type: object
+            description: A cloud resource that matched the policy filters.
+    PolicyDefinition:
+      type: object
+      description: >-
+        The complete Cloud Custodian policy definition that triggered this
+        notification, including the resource type, filters, actions, and
+        optional execution mode configuration.
+      required:
+        - name
+        - resource
+      properties:
+        name:
+          type: string
+          description: >-
+            The unique name of the policy within the policies configuration
+            file. Used as an identifier in logs, metrics, and notifications.
+        resource:
+          type: string
+          description: >-
+            The cloud resource type that this policy targets, expressed as
+            a provider-prefixed type string (e.g., aws.ec2, azure.vm, gcp.instance).
+        description:
+          type: string
+          description: >-
+            Optional human-readable description of the policy's purpose and
+            intended behavior.
+        filters:
+          type: array
+          description: >-
+            Array of filter definitions that select which resources the policy
+            applies to. Filters are ANDed together by default.
+          items:
+            type: object
+            description: A filter criterion applied to candidate resources.
+        actions:
+          type: array
+          description: >-
+            Array of action definitions that the policy executes on matched
+            resources, such as notify, tag, stop, or delete.
+          items:
+            type: object
+            description: An action to perform on matched resources.
+        mode:
+          type: object
+          description: >-
+            Optional execution mode configuration controlling how and when the
+            policy runs (e.g., pull, lambda, config, periodic).
+          properties:
+            type:
+              type: string
+              description: >-
+                The execution mode type (pull, lambda, config, periodic,
+                phd, etc.).
+              enum:
+                - pull
+                - lambda
+                - config
+                - periodic
+                - phd
+                - cloudtrail
+                - hub-action
+                - hub-poll
+            role:
+              type: string
+              description: >-
+                IAM role ARN to assume when executing the policy in Lambda
+                or Config mode.
+            schedule:
+              type: string
+              description: >-
+                Cron schedule expression for periodic execution mode.
+    NotifyAction:
+      type: object
+      description: >-
+        The notify action configuration from the policy that triggered this
+        notification message, containing delivery target settings and template
+        references.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: The action type identifier, always "notify" for notification actions.
+          enum:
+            - notify
+        to:
+          type: array
+          description: >-
+            List of notification target addresses. Supports email addresses,
+            Slack channels (prefixed with slack://), and special tokens like
+            resource-owner or manager.
+          items:
+            type: string
+            description: A notification target address or token.
+        cc:
+          type: array
+          description: Optional list of CC email addresses for email delivery.
+          items:
+            type: string
+            description: A CC email address.
+        transport:
+          type: object
+          description: >-
+            Transport configuration specifying the SQS queue used to relay
+            messages to the c7n-mailer daemon.
+          properties:
+            type:
+              type: string
+              description: The transport type (sqs or sns).
+              enum:
+                - sqs
+                - sns
+            queue:
+              type: string
+              description: The SQS queue URL for the mailer transport.
+        template:
+          type: string
+          description: >-
+            Name of the Jinja2 template file used by c7n-mailer to render
+            the notification body. Defaults to default.html.j2 for email.
+        subject:
+          type: string
+          description: >-
+            Subject line template for email notifications. Supports Jinja2
+            variable interpolation.
+        violation_desc:
+          type: string
+          description: >-
+            Human-readable description of the policy violation included in
+            notification messages.
+        action_desc:
+          type: string
+          description: >-
+            Description of the remediation action taken, included in
+            notification messages.
