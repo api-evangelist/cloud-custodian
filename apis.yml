@@ -6,8 +6,8 @@ tags:
   - Cloud Security
   - Compliance
   - Cost Optimization
-  - Policy as Code
   - Multi-Cloud
+  - Policy as Code
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
@@ -60,8 +60,8 @@ apis:
     tags:
       - AWS
       - Cloud Security
-      - Policy as Code
       - Compliance
+      - Policy as Code
   - aid: cloud-custodian:cloud-custodian-azure
     name: Cloud Custodian Azure Provider
     description: >-
@@ -80,8 +80,8 @@ apis:
     tags:
       - Azure
       - Cloud Security
-      - Policy as Code
       - Compliance
+      - Policy as Code
   - aid: cloud-custodian:cloud-custodian-gcp
     name: Cloud Custodian GCP Provider
     description: >-
@@ -98,10 +98,10 @@ apis:
       - url: https://cloudcustodian.io/docs/gcp/resources/index.html
         type: Reference
     tags:
-      - GCP
       - Cloud Security
-      - Policy as Code
       - Compliance
+      - GCP
+      - Policy as Code
   - aid: cloud-custodian:cloud-custodian-c7n-org
     name: Cloud Custodian C7n-Org
     description: >-
@@ -116,9 +116,9 @@ apis:
       - url: https://cloudcustodian.io/docs/tools/c7n-org.html
         type: Documentation
     tags:
+      - Cloud Security
       - Multi-Account
       - Orchestration
-      - Cloud Security
   - aid: cloud-custodian:cloud-custodian-c7n-mailer
     name: Cloud Custodian C7n-Mailer
     description: >-
@@ -135,10 +135,10 @@ apis:
       - type: AsyncAPI
         url: asyncapi/cloud-custodian-mailer-asyncapi.yml
     tags:
-      - Notifications
-      - Email
-      - Slack
       - Alerting
+      - Email
+      - Notifications
+      - Slack
 common:
   - type: Website
     url: https://cloudcustodian.io/
