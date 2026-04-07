@@ -103,7 +103,7 @@ apis:
       - Policy as Code
       - Compliance
   - aid: cloud-custodian:cloud-custodian-c7n-org
-    name: Cloud Custodian c7n-org
+    name: Cloud Custodian C7n-Org
     description: >-
       c7n-org is a Cloud Custodian tool for running policies across multiple
       cloud accounts, projects, or subscriptions in parallel. It uses an
@@ -120,7 +120,7 @@ apis:
       - Orchestration
       - Cloud Security
   - aid: cloud-custodian:cloud-custodian-c7n-mailer
-    name: Cloud Custodian c7n-mailer
+    name: Cloud Custodian C7n-Mailer
     description: >-
       c7n-mailer is a Cloud Custodian notification tool that subscribes to an
       SQS queue populated by policy actions and sends notifications via SES
