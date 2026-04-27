@@ -1,22 +1,22 @@
 # Cloud Custodian (cloud-custodian)
-Cloud Custodian is a rules engine for cloud security, compliance, and cost optimization that enables users to define policies to manage cloud resources across AWS, Azure, and GCP. It helps organizations meet regulatory requirements and demonstrate accountability to stakeholders.
+Cloud Custodian is an open-source rules engine for cloud security, compliance, and cost-optimization governance now stewarded by Stacklet. Operators express policies as YAML files that select a cloud resource type, apply filters, and execute actions; the engine then runs those policies against AWS, Azure, and GCP via provider-specific plugins. Custodian does not expose a developer REST API of its own - integration is via the c7n CLI, the policy YAML schema, c7n-org for multi-account fan-out, and c7n-mailer for SQS-driven notifications.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/cloud-custodian/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** Open Source
 
-## Tags:
+## Tags
 
- - Cloud Security, Compliance, Cost Optimization, Policy as Code, Multi-Cloud
+- Cloud Security, Compliance, Cost Optimization, Multi-Cloud, Policy as Code
 
 ## Timestamps
 
-- **Created:** 2025-01-01 
-- **Modified:** 2026-03-18 
+- **Created:** 2025-01-01
+- **Modified:** 2026-04-27
 
 ## APIs
 
@@ -122,8 +122,10 @@ c7n-mailer is a Cloud Custodian notification tool that subscribes to an SQS queu
 - [Community](https://cloudcustodian.io/community/)
 - [GitHubRepository](https://github.com/cloud-custodian/cloud-custodian)
 - [Change Log](https://github.com/cloud-custodian/cloud-custodian/releases)
-- [JSON-LD](json-ld/cloud-custodian-context.jsonld)
-- [JSONSchema](json-schema/cloud-custodian-policy-schema.json)
+- [JSON-LD Context](json-ld/cloud-custodian-context.jsonld)
+- [Policy JSON Schema](json-schema/cloud-custodian-policy-schema.json)
+- [Mailer AsyncAPI](asyncapi/cloud-custodian-mailer-asyncapi.yml)
+- [Naftiko Capabilities](capabilities/cloud-custodian-capabilities.yml)
 
 ## Maintainers
 

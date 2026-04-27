@@ -1,0 +1,51 @@
+capabilities:
+  - id: cloud-custodian.author-policy
+    name: Author cloud governance policies
+    description: >-
+      Express policies as YAML covering a cloud resource type, optional
+      execution mode, filter criteria, and actions. Policies are
+      version-controlled alongside infrastructure code and validated
+      against the Cloud Custodian schema.
+    apis:
+      - cloud-custodian:cloud-custodian
+  - id: cloud-custodian.govern-aws-resources
+    name: Govern AWS resources
+    description: >-
+      Use the AWS provider to filter and act on hundreds of AWS
+      resource types (EC2, S3, IAM, RDS, Lambda, etc.) for security,
+      compliance, and cost-optimization workflows. Policies can run
+      in pull, periodic, event, and config-rule modes.
+    apis:
+      - cloud-custodian:cloud-custodian-aws
+  - id: cloud-custodian.govern-azure-resources
+    name: Govern Microsoft Azure resources
+    description: >-
+      Apply policy-as-code to Azure resources such as VMs, storage
+      accounts, and network security groups to enforce tagging,
+      configuration, and cost controls across subscriptions.
+    apis:
+      - cloud-custodian:cloud-custodian-azure
+  - id: cloud-custodian.govern-gcp-resources
+    name: Govern Google Cloud Platform resources
+    description: >-
+      Apply policy-as-code to GCP resources such as Compute Engine
+      instances, GCS buckets, and Cloud SQL to enforce security,
+      compliance, and cost governance across projects.
+    apis:
+      - cloud-custodian:cloud-custodian-gcp
+  - id: cloud-custodian.scale-across-accounts
+    name: Run policies across many accounts at scale
+    description: >-
+      Use c7n-org to fan-out Custodian execution across multiple AWS
+      accounts, Azure subscriptions, or GCP projects in parallel using
+      an accounts configuration file with assumed roles.
+    apis:
+      - cloud-custodian:cloud-custodian-c7n-org
+  - id: cloud-custodian.notify-resource-owners
+    name: Notify resource owners on policy actions
+    description: >-
+      Use c7n-mailer to subscribe to an SQS queue populated by policy
+      actions and dispatch notifications via SES email, Slack, or
+      DataDog/Splunk integrations so that owners can act on findings.
+    apis:
+      - cloud-custodian:cloud-custodian-c7n-mailer

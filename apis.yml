@@ -1,6 +1,5 @@
 aid: cloud-custodian
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/cloud-custodian/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/cloud-custodian/refs/heads/main/apis.yml
 name: Cloud Custodian
 tags:
   - Cloud Security
@@ -9,16 +8,21 @@ tags:
   - Multi-Cloud
   - Policy as Code
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-access: 3rd-Party
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: Open Source
 created: '2025-01-01'
-modified: '2026-03-18'
+modified: '2026-04-27'
 position: Consumer
+x-type: opensource
 description: >-
-  Cloud Custodian is a rules engine for cloud security, compliance, and cost
-  optimization that enables users to define policies to manage cloud resources
-  across AWS, Azure, and GCP. It helps organizations meet regulatory
-  requirements and demonstrate accountability to stakeholders.
+  Cloud Custodian is an open-source rules engine for cloud security,
+  compliance, and cost-optimization governance now stewarded by Stacklet.
+  Operators express policies as YAML files that select a cloud resource
+  type, apply filters, and execute actions; the engine then runs those
+  policies against AWS, Azure, and GCP via provider-specific plugins.
+  Custodian does not expose a developer REST API of its own - integration
+  is via the c7n CLI, the policy YAML schema, c7n-org for multi-account
+  fan-out, and c7n-mailer for SQS-driven notifications.
 apis:
   - aid: cloud-custodian:cloud-custodian
     name: Cloud Custodian
@@ -154,10 +158,14 @@ common:
     url: https://github.com/cloud-custodian/cloud-custodian
   - type: Change Log
     url: https://github.com/cloud-custodian/cloud-custodian/releases
-  - type: JSON-LD
+  - type: JSONLDContext
     url: json-ld/cloud-custodian-context.jsonld
   - type: JSONSchema
     url: json-schema/cloud-custodian-policy-schema.json
+  - type: AsyncAPI
+    url: asyncapi/cloud-custodian-mailer-asyncapi.yml
+  - type: Naftiko Capabilities
+    url: capabilities/cloud-custodian-capabilities.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
