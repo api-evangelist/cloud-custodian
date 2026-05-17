@@ -13,7 +13,7 @@ access: Open Source
 created: '2025-01-01'
 modified: '2026-04-27'
 position: Consumer
-x-type: opensource
+kind: opensource
 description: >-
   Cloud Custodian is an open-source rules engine for cloud security,
   compliance, and cost-optimization governance now stewarded by Stacklet.
@@ -34,7 +34,7 @@ apis:
       - url: https://cloudcustodian.io/docs/
         type: Documentation
       - url: https://cloudcustodian.io/docs/quickstart/index.html
-        type: Getting Started
+        type: GettingStarted
       - url: https://cloudcustodian.io/docs/overview/capabilities.html
         type: Reference
       - url: https://github.com/cloud-custodian/cloud-custodian
@@ -56,7 +56,7 @@ apis:
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/aws/gettingstarted.html
-        type: Getting Started
+        type: GettingStarted
       - url: https://cloudcustodian.io/docs/aws/resources/index.html
         type: Reference
       - url: https://cloudcustodian.io/docs/aws/examples/index.html
@@ -78,7 +78,7 @@ apis:
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/azure/gettingstarted.html
-        type: Getting Started
+        type: GettingStarted
       - url: https://cloudcustodian.io/docs/azure/policy/resources/index.html
         type: Reference
     tags:
@@ -98,7 +98,7 @@ apis:
     image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/gcp/gettingstarted.html
-        type: Getting Started
+        type: GettingStarted
       - url: https://cloudcustodian.io/docs/gcp/resources/index.html
         type: Reference
     tags:
@@ -148,15 +148,15 @@ common:
     url: https://cloudcustodian.io/
   - type: Documentation
     url: https://cloudcustodian.io/docs/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/cloud-custodian/cloud-custodian
-  - type: Getting Started
+  - type: GettingStarted
     url: https://cloudcustodian.io/docs/quickstart/index.html
   - type: Community
     url: https://cloudcustodian.io/community/
   - type: GitHubRepository
     url: https://github.com/cloud-custodian/cloud-custodian
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/cloud-custodian/cloud-custodian/releases
   - type: JSONLDContext
     url: json-ld/cloud-custodian-context.jsonld
