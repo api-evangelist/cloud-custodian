@@ -8,7 +8,7 @@ tags:
   - Multi-Cloud
   - Policy as Code
 type: Index
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: Open Source
 created: '2025-01-01'
 modified: '2026-04-27'
@@ -53,7 +53,7 @@ apis:
       multiple execution modes including serverless Lambda functions, AWS Config
       rules, and scheduled CloudWatch Events.
     humanURL: https://cloudcustodian.io/docs/aws/gettingstarted.html
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/aws/gettingstarted.html
         type: GettingStarted
@@ -75,7 +75,7 @@ apis:
       security requirements, tagging standards, and cost controls across Azure
       subscriptions.
     humanURL: https://cloudcustodian.io/docs/azure/gettingstarted.html
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/azure/gettingstarted.html
         type: GettingStarted
@@ -95,7 +95,7 @@ apis:
       used to enforce security, compliance, and cost governance standards across
       GCP projects.
     humanURL: https://cloudcustodian.io/docs/gcp/gettingstarted.html
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/gcp/gettingstarted.html
         type: GettingStarted
@@ -115,7 +115,7 @@ apis:
       execution at scale across AWS Organizations, Azure subscriptions, or GCP
       projects.
     humanURL: https://cloudcustodian.io/docs/tools/c7n-org.html
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/tools/c7n-org.html
         type: Documentation
@@ -132,7 +132,7 @@ apis:
       enables teams to alert resource owners when Custodian policies detect
       policy violations.
     humanURL: https://cloudcustodian.io/docs/tools/c7n-mailer.html
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     properties:
       - url: https://cloudcustodian.io/docs/tools/c7n-mailer.html
         type: Documentation
