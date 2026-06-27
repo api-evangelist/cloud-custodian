@@ -164,7 +164,7 @@ common:
     url: json-schema/cloud-custodian-policy-schema.json
   - type: AsyncAPI
     url: asyncapi/cloud-custodian-mailer-asyncapi.yml
-  - type: Naftiko Capabilities
+  - type: X-NaftikoCapabilities
     url: capabilities/cloud-custodian-capabilities.yml
 maintainers:
   - FN: Kin Lane
