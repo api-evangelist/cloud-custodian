@@ -144,6 +144,8 @@ apis:
       - Notifications
       - Slack
 common:
+  - type: DomainSecurity
+    url: security/cloud-custodian-domain-security.yml
   - type: Website
     url: https://cloudcustodian.io/
   - type: Documentation
