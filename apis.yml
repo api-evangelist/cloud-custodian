@@ -156,6 +156,13 @@ apis:
       - Notifications
       - Slack
 common:
+  - type: IssueTracker
+    url: https://github.com/cloud-custodian/cloud-custodian/issues
+  - type: SecurityPolicy
+    url: https://github.com/cloud-custodian/cloud-custodian/blob/main/SECURITY.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/cloud-custodian/cloud-custodian/blob/main/LICENSE
   - type: DomainSecurity
     url: security/cloud-custodian-domain-security.yml
   - type: Website
@@ -178,8 +185,6 @@ common:
     url: json-schema/cloud-custodian-policy-schema.json
   - type: AsyncAPI
     url: asyncapi/cloud-custodian-mailer-asyncapi.yml
-  - type: X-NaftikoCapabilities
-    url: capabilities/cloud-custodian-capabilities.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
