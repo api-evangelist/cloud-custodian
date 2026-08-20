@@ -153,6 +153,11 @@ apis:
     tags:
       - Alerting
       - Email
+      - Notification
+      - Slack
+    tags_raw:
+      - Alerting
+      - Email
       - Notifications
       - Slack
 common:
