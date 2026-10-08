@@ -176,6 +176,12 @@ apis:
       - Notifications
       - Slack
 common:
+  - type: Plans
+    url: plans/cloud-custodian-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/cloud-custodian-rate-limits.yml
+  - type: FinOps
+    url: finops/cloud-custodian-finops.yml
   - type: IssueTracker
     url: https://github.com/cloud-custodian/cloud-custodian/issues
   - type: SecurityPolicy
