@@ -109,6 +109,11 @@ apis:
       - url: https://cloudcustodian.io/docs/azure/policy/resources/index.html
         type: Reference
     tags:
+      - Microsoft Azure
+      - Cloud Security
+      - Compliance
+      - Policy as Code
+    tags_raw:
       - Azure
       - Cloud Security
       - Compliance
