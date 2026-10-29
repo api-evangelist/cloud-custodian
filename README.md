@@ -1,4 +1,4 @@
-# Cloud Custodian (cloud-custodian)
+# Cloud Custodian
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,134 +66,139 @@
 
 Cloud Custodian is an open-source rules engine for cloud security, compliance, and cost-optimization governance now stewarded by Stacklet. Operators express policies as YAML files that select a cloud resource type, apply filters, and execute actions; the engine then runs those policies against AWS, Azure, and GCP via provider-specific plugins. Custodian does not expose a developer REST API of its own - integration is via the c7n CLI, the policy YAML schema, c7n-org for multi-account fan-out, and c7n-mailer for SQS-driven notifications.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/cloud-custodian/refs/heads/main/apis.yml)
+**Areas:** Cloud Security · Compliance · Cost Optimization · Multi-Cloud · Policy as Code
 
-## Scope
+## Cloud Custodian on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** Open Source
+Everything profiled for Cloud Custodian is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cloud-custodian/](https://apis.io/providers/cloud-custodian/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Cloud Security, Compliance, Cost Optimization, Multi-Cloud, Policy as Code
+- [Cloud Custodian](https://apis.io/apis/cloud-custodian/cloud-custodian/) — Cloud Custodian provides rules-engine capabilities for managing cloud resources with security, compliance, and cost optimization policies.
+- [Cloud Custodian AWS Provider](https://apis.io/apis/cloud-custodian/cloud-custodian-aws/) — The Cloud Custodian AWS provider enables policy-as-code management of Amazon Web Services resources including EC2, S3, IAM, RDS, Lambda, and hundreds of…
+- [Cloud Custodian Azure Provider](https://apis.io/apis/cloud-custodian/cloud-custodian-azure/) — The Cloud Custodian Azure provider enables policy-as-code management of Microsoft Azure resources including virtual machines, storage accounts, network…
+- [Cloud Custodian GCP Provider](https://apis.io/apis/cloud-custodian/cloud-custodian-gcp/) — The Cloud Custodian GCP provider enables policy-as-code management of Google Cloud Platform resources including Compute Engine instances, GCS buckets, Cloud…
+- [Cloud Custodian C7n-Org](https://apis.io/apis/cloud-custodian/cloud-custodian-c7n-org/) — c7n-org is a Cloud Custodian tool for running policies across multiple cloud accounts, projects, or subscriptions in parallel. It uses an accounts…
+- [Cloud Custodian C7n-Mailer](https://apis.io/apis/cloud-custodian/cloud-custodian-c7n-mailer/) — c7n-mailer is a Cloud Custodian notification tool that subscribes to an SQS queue populated by policy actions and sends notifications via SES email, Slack…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-01
-- **Modified:** 2026-04-27
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Cloud Custodian
-Cloud Custodian provides rules-engine capabilities for managing cloud resources with security, compliance, and cost optimization policies.
+Event-driven and webhook contracts.
 
-**Human URL:** [https://cloudcustodian.io/](https://cloudcustodian.io/)
+- [Cloud Custodian c7n-mailer Notification Events](https://apis.io/asyncapis/cloud-custodian/cloud-custodian-mailer-asyncapi/)
 
+#### Event channels (1)
 
-#### Tags:
+Individual events and webhooks the provider emits.
 
- - Cloud Security, Policy as Code
+- [/policy-notification](https://apis.io/channels/cloud-custodian/policy-notification/)
 
-#### Properties
+#### JSON Schema (1)
 
-- [Documentation](https://cloudcustodian.io/docs/)
-- [Getting Started](https://cloudcustodian.io/docs/quickstart/index.html)
-- [Reference](https://cloudcustodian.io/docs/overview/capabilities.html)
-- [GitHubRepository](https://github.com/cloud-custodian/cloud-custodian)
-- [JSONSchema](json-schema/cloud-custodian-policy-schema.json)
+The data models the API reads and writes.
 
-### Cloud Custodian AWS Provider
-The Cloud Custodian AWS provider enables policy-as-code management of Amazon Web Services resources including EC2, S3, IAM, RDS, Lambda, and hundreds of other AWS service resource types. Policies can be run in multiple execution modes including serverless Lambda functions, AWS Config rules, and scheduled CloudWatch Events.
+- [Cloud Custodian Policy File](https://apis.io/schemas/cloud-custodian/cloud-custodian-policy/)
 
-**Human URL:** [https://cloudcustodian.io/docs/aws/gettingstarted.html](https://cloudcustodian.io/docs/aws/gettingstarted.html)
+#### JSON-LD (1)
 
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags:
+- [Cloud Custodian Context](https://apis.io/jsonld/cloud-custodian/cloud-custodian-context/)
 
- - AWS, Cloud Security, Policy as Code, Compliance
+#### Governance rules (2)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Getting Started](https://cloudcustodian.io/docs/aws/gettingstarted.html)
-- [Reference](https://cloudcustodian.io/docs/aws/resources/index.html)
-- [Documentation](https://cloudcustodian.io/docs/aws/examples/index.html)
+- [Cloud Custodian — asyncapi rules](https://apis.io/rules/cloud-custodian/cloud-custodian-asyncapi-spectral-rules/)
+- [Cloud Custodian — jsonschema rules](https://apis.io/rules/cloud-custodian/cloud-custodian-jsonschema-spectral-rules/)
 
-### Cloud Custodian Azure Provider
-The Cloud Custodian Azure provider enables policy-as-code management of Microsoft Azure resources including virtual machines, storage accounts, network security groups, and other Azure services. Policies can enforce security requirements, tagging standards, and cost controls across Azure subscriptions.
+#### Security (1)
 
-**Human URL:** [https://cloudcustodian.io/docs/azure/gettingstarted.html](https://cloudcustodian.io/docs/azure/gettingstarted.html)
+Authentication, trust centre, and vulnerability disclosure.
 
+- [Cloud Custodian Domain Security](https://apis.io/security/cloud-custodian/cloud-custodian-domain-security/)
 
-#### Tags:
+#### Plans and pricing (1)
 
- - Azure, Cloud Security, Policy as Code, Compliance
+Published plans, tiers and prices.
 
-#### Properties
+- [Cloud Custodian Plans Pricing](https://apis.io/plans/cloud-custodian/cloud-custodian-plans-pricing/)
 
-- [Getting Started](https://cloudcustodian.io/docs/azure/gettingstarted.html)
-- [Reference](https://cloudcustodian.io/docs/azure/policy/resources/index.html)
+#### Rate limits (1)
 
-### Cloud Custodian GCP Provider
-The Cloud Custodian GCP provider enables policy-as-code management of Google Cloud Platform resources including Compute Engine instances, GCS buckets, Cloud SQL instances, and other GCP services. Policies can be used to enforce security, compliance, and cost governance standards across GCP projects.
+Published request limits.
 
-**Human URL:** [https://cloudcustodian.io/docs/gcp/gettingstarted.html](https://cloudcustodian.io/docs/gcp/gettingstarted.html)
+- [Cloud Custodian Rate Limits](https://apis.io/rate-limits/cloud-custodian/cloud-custodian-rate-limits/)
 
+#### FinOps (1)
 
-#### Tags:
+What the API costs to run, by operation.
 
- - GCP, Cloud Security, Policy as Code, Compliance
+- [Cloud Custodian Finops](https://apis.io/finops/cloud-custodian/cloud-custodian-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Getting Started](https://cloudcustodian.io/docs/gcp/gettingstarted.html)
-- [Reference](https://cloudcustodian.io/docs/gcp/resources/index.html)
-
-### Cloud Custodian c7n-org
-c7n-org is a Cloud Custodian tool for running policies across multiple cloud accounts, projects, or subscriptions in parallel. It uses an accounts configuration file with assumed roles to orchestrate Custodian execution at scale across AWS Organizations, Azure subscriptions, or GCP projects.
-
-**Human URL:** [https://cloudcustodian.io/docs/tools/c7n-org.html](https://cloudcustodian.io/docs/tools/c7n-org.html)
-
-
-#### Tags:
-
- - Multi-Account, Orchestration, Cloud Security
-
-#### Properties
-
-- [Documentation](https://cloudcustodian.io/docs/tools/c7n-org.html)
-
-### Cloud Custodian c7n-mailer
-c7n-mailer is a Cloud Custodian notification tool that subscribes to an SQS queue populated by policy actions and sends notifications via SES email, Slack messages, or integrations with DataDog and Splunk. It enables teams to alert resource owners when Custodian policies detect policy violations.
-
-**Human URL:** [https://cloudcustodian.io/docs/tools/c7n-mailer.html](https://cloudcustodian.io/docs/tools/c7n-mailer.html)
-
-
-#### Tags:
-
- - Notifications, Email, Slack, Alerting
-
-#### Properties
-
-- [Documentation](https://cloudcustodian.io/docs/tools/c7n-mailer.html)
-- [AsyncAPI](asyncapi/cloud-custodian-mailer-asyncapi.yml)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://cloudcustodian.io/)
 - [Documentation](https://cloudcustodian.io/docs/)
-- [GitHub Organization](https://github.com/cloud-custodian/cloud-custodian)
-- [Getting Started](https://cloudcustodian.io/docs/quickstart/index.html)
-- [Community](https://cloudcustodian.io/community/)
-- [GitHubRepository](https://github.com/cloud-custodian/cloud-custodian)
-- [Change Log](https://github.com/cloud-custodian/cloud-custodian/releases)
-- [JSON-LD Context](json-ld/cloud-custodian-context.jsonld)
-- [Policy JSON Schema](json-schema/cloud-custodian-policy-schema.json)
-- [Mailer AsyncAPI](asyncapi/cloud-custodian-mailer-asyncapi.yml)
-- [Naftiko Capabilities](capabilities/cloud-custodian-capabilities.yml)
+- [Getting started](https://cloudcustodian.io/docs/quickstart/index.html)
+- [Changelog](https://github.com/cloud-custodian/cloud-custodian/releases)
+- [GitHub](https://github.com/cloud-custodian/cloud-custodian)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 35.3** — thin · rubric 0.24.0 · scored 2026-10-17
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 51.5 |
+| Contract governance | 13.6 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 7.9 |
+
+**Agent readiness 14.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cloud-custodian/](https://apis.io/providers/cloud-custodian/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cloud Custodian: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cloud-custodian/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
